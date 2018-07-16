@@ -34,7 +34,10 @@ str(single_population)
 
 basic_aid <- basic_aid[-which(basic_aid$동 == '소계'),]
 basic_aid <- basic_aid[-which(basic_aid$동 == '기타'),]
-str(house_type)
+str(basic_aid)
+basic_aid$수급자.비율 <- round(basic_aid$총.수급자 / single_household$계, 4)
+summary(basic_aid$수급자.비율)
+basic_aid[which(basic_aid$수급자.비율 > 0.1),]
 
 house_type <- house_type[-which(house_type$동 == '소계'),]
 str(house_type)
@@ -49,7 +52,7 @@ dong <- gsub('\\W+', '', dong)
 length(table(dong))
 
 
-
+# 데이터 통합
 library(dplyr)
 rawdata <- single_household
 rawdata <- append(rawdata, single_population[3:length(single_population)])
