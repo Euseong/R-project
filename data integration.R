@@ -1,4 +1,3 @@
-# 1인가구 비율과 부동산, 주택 관련 데이터들을 하나의 자료구조로 통합
 # 각 데이터 불러오기
 options(encoding='UTF-8')
 
@@ -81,6 +80,8 @@ rawdata <- append(rawdata, market[3:length(market)])
 rawdata <- append(rawdata, single_sliverman[4:length(single_sliverman)])
 rawdata <- append(rawdata, masterwoman_data[3:length(masterwoman_data)])
 
+rawdata <- as.data.frame(rawdata, stringsAsFactors=F)
+colnames(rawdata)[c(4:6)] <- c('1인가구', '2인이상.가구', '1인가구.비율')
 str(rawdata)
 length(is.na(rawdata))
 length(table(rawdata$자치구))
