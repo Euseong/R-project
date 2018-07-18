@@ -58,6 +58,10 @@ plot(rent_single$월세..만원., rent_single$`2인이상.가구`)
 
 cor(rent_single[4:length(rent_single)]) # 1인가구와 월세의 상관관계는 적음(0.1 이하)
 cor(jeonse_single[4:length(jeonse_single)]) # 1인가구와 전세 보증금의 상관관계는 적음(0.05 이하)
+
+library(psych)
+pairs.panels(rent_single[c(-1, -2, -3, -8)])
+pairs.panels(jeonse_single[c(-1, -2, -3, -8)])
 # 1인가구와 주택 면적의 상관계수는 약 -0.3으로 1인가구 비율이 높을 수록 거래되는 주택의 면적에 약간만 영향줌
 
 # 월세 데이터(rent_single) 결정트리 분석
@@ -66,8 +70,6 @@ str(rent_single)
 summary(rent_single$`1인가구.비율`)
 summary(rent_single$월세..만원.)
 summary(rent_single$면적..m..)
-set.seed(100)
-index <- sample(1:nrow(rent_single), 0.7*nrow(rent_single))
 
 rent.lv.def <- function(x) {ifelse(x<35, 'low', 
                                    ifelse(x<55, 'middle', 'high'))}
@@ -81,6 +83,8 @@ table(rent_single$rent.lv)
 
 head(rent_single)
 
+set.seed(100)
+index <- sample(1:nrow(rent_single), 0.7*nrow(rent_single))
 rent_train <- rent_single[index,]
 rent_test <- rent_single[-index,]
 
@@ -180,3 +184,5 @@ head(cpred)
 head(jeonse_test$area.lv)
 (pred_table <- table(cpred, jeonse_test$area.lv))
 sum(diag(pred_table)) / sum(pred_table)
+
+
