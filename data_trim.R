@@ -1,4 +1,8 @@
-### data_integration.R 실행 후 진행
+options(encoding='UTF-8')
+rawdata <- read.csv('rawdata.csv', header=T, sep=',', stringsAsFactors = F)
+rawdata[1] <- NULL
+colnames(rawdata)[c(4:6)] <- c('1인가구', '2인이상.가구', '1인가구.비율')
+
 # rawdata의 각 컬럼 데이터가 정규성의 띄는지 확인
 xnorm_vec <- NULL
 for (i in 4:length(rawdata)) {
